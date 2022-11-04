@@ -6,10 +6,57 @@ async function seed() {
     force: true,
   });
 
+  const john = await User.create({
+    name: "John",
+    email: "johndoe@hotmail.com",
+  });
+
+  const timmy = await User.create({
+    name: "Timmy",
+    email: "timmy@hotmail.com",
+  });
+
   const cheese = await Cheese.bulkCreate([
-    { title: "Cheddar", description: "Cheddar Cheese Maturity Level 4" },
-    { title: "Edam", description: "Edam Cheese Maturity Level 2" },
+    { title: "Cheddar", description: "Hard cheese originated in the UK" },
+    {
+      title: "Mozzarella",
+      description: "Semi-soft cheese originated in Italy",
+    },
   ]);
+
+  const b1 = await Board.create({
+    type: "Cheddar",
+    description: "Hard cheese originated in the UK",
+    rating: 4,
+  });
+  const b2 = await Board.create({
+    type: "Mozzarella",
+    description: "Semi-soft cheese from Italy",
+    rating: 5,
+  });
+  const b3 = await Board.create({
+    type: "Cheddar",
+    description: "Hard cheese originated in the UK",
+    rating: 2,
+  });
+  const b4 = await Board.create({
+    type: "Mozzarella",
+    description: "Semi-soft cheese from Italy",
+    rating: 1,
+  });
+
+  await timmy.addBoard(b1);
+  await timmy.addBoard(b2);
+  await john.addBoard(b3);
+  await john.addBoard(b4);
+
+  await cheese[0].addBoards(b1);
+  await cheese[0].addBoards(b3);
+  await cheese[1].addBoards(b2);
+  await cheese[1].addBoards(b4);
+
+  //add{name-of-table} = many tables owned by source
+  // set{name-of-table} = subject is owned by single source, also one to one relationship
 }
 
 seed();
