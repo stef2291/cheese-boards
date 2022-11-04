@@ -47,6 +47,11 @@ async function seed() {
 
   await timmy.addBoard(b1);
   await timmy.addBoard(b2);
+
+  // const data = await timmy.getBoards();
+
+  // console.log("Data: ", data.map((d) => d.toJSON()).length);
+
   await john.addBoard(b3);
   await john.addBoard(b4);
 
@@ -54,6 +59,9 @@ async function seed() {
   await cheese[0].addBoards(b3);
   await cheese[1].addBoards(b2);
   await cheese[1].addBoards(b4);
+
+  const count = await cheese[0].countBoards();
+  console.log(count);
 
   //add{name-of-table} = many tables owned by source
   // set{name-of-table} = subject is owned by single source, also one to one relationship
