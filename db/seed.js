@@ -60,8 +60,13 @@ async function seed() {
   await cheese[1].addBoards(b2);
   await cheese[1].addBoards(b4);
 
-  const count = await cheese[0].countBoards();
-  console.log(count);
+  const user_Boards = await User.findAll({
+    include: Board,
+  });
+
+  const jsoned = user_Boards.map((b) => b.toJSON());
+
+  console.log(jsoned[0].Boards);
 
   //add{name-of-table} = many tables owned by source
   // set{name-of-table} = subject is owned by single source, also one to one relationship
